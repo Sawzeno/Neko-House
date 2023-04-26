@@ -7,8 +7,6 @@
 - Single player mode with undo move and move history review options
 - Legal move enforcement and highlighting features
 - Custom themes to personalize the game board and pieces
-- Built-in sound effects and background music
-- Two player mode for local and remote play
 
 ## <span style="color:#4CAF50">Getting Started</span>
 
