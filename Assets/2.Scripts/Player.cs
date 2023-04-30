@@ -8,11 +8,11 @@ public class Player : MonoBehaviour
     private float _ay ;
     private float _az ;
     private Vector3 _a;
-    readonly Vector3 _init = Vector3.zero;
+    readonly Vector3 _init ;
 
     private void Start()
     {
-        cam.position = _init;
+        cam.position = transform.position;
     }
 
     private void Update()

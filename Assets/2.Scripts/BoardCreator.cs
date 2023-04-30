@@ -4,8 +4,8 @@ public class BoardCreator : MonoBehaviour
 {
     [Range(8, 16)] [SerializeField] private int size = 8;
     [SerializeField] private GameObject test;
-    [SerializeField] private Color white;
-    [SerializeField] private Color black;
+    [SerializeField] private Material white;
+    [SerializeField] private Material black;
 
     private void Update()
     {
@@ -27,7 +27,7 @@ public class BoardCreator : MonoBehaviour
             }
         }
     }
-    
+
 
     private void CallInstantiation(int i, int j)
     {
@@ -44,10 +44,10 @@ public class BoardCreator : MonoBehaviour
         }
     }
 
-    private void CreateCell(int i, int j, Color input)
+    private void CreateCell(int i, int j, Material input)
     {
         GameObject cell = Instantiate(test, new Vector3(i, 0, j), Quaternion.identity);
-        cell.GetComponent<Renderer>().material.color = input;
+        cell.GetComponent<Renderer>().material = input;
         cell.transform.parent = transform;
         cell.name = $"Cell {i} {j}";
     }
