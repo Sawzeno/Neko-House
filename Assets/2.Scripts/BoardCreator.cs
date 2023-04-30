@@ -1,18 +1,66 @@
 using UnityEngine;
 
+
 public class BoardCreator : MonoBehaviour
 {
-    [Range(8, 16)] [SerializeField] private int size = 8;
-    [SerializeField] private GameObject test;
+    // GameObjects
+    private readonly int size = 8;
+    [SerializeField] private GameObject cell;
+    [SerializeField] private GameObject pawn;
+    [SerializeField] private GameObject rook;
+    [SerializeField] private GameObject knight;
+    [SerializeField] private GameObject bishop;
+    [SerializeField] private GameObject queen;
+    [SerializeField] private GameObject king;
+    [SerializeField] private GameObject highlighter;
+    // materials
     [SerializeField] private Material white;
     [SerializeField] private Material black;
-
-    private void Update()
+    
+    //Game Object List
+    private GameObject[,] _board;
+    
+    private void InitializePieces()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        Quaternion rotationx = Quaternion.Euler(-90, 0, 0);
+        Quaternion rotationy = Quaternion.Euler(-90, 180, 0);
+        Vector3 offset = new Vector3(0, 1f, 0);
+        // White
+        for (int i = 0; i < size; i++)
         {
-            CreateBoard();
+            Instantiate(pawn, new Vector3(i, 0, 1)+offset,rotationx);
         }
+        Instantiate(rook, new Vector3(0, 0, 0)+offset, rotationx);
+        Instantiate(knight, new Vector3(1, 0, 0)+offset, rotationx);
+        Instantiate(bishop, new Vector3(2, 0, 0)+offset, rotationx);
+        Instantiate(queen, new Vector3(3, 0, 0)+offset, rotationx);
+        Instantiate(king, new Vector3(4, 0, 0)+offset, rotationx);
+        Instantiate(bishop, new Vector3(5, 0, 0)+offset, rotationx);
+        Instantiate(knight, new Vector3(6, 0, 0)+offset, rotationx);
+        Instantiate(rook, new Vector3(7, 0, 0)+offset, rotationx);
+        
+        // Black
+        for (int i = 0; i < size; i++)
+        {
+            Instantiate(pawn, new Vector3(i, 0, 6)+offset, rotationy);
+        }
+        Instantiate(rook, new Vector3(0, 0, 7)+offset, rotationy);
+        Instantiate(knight, new Vector3(1, 0, 7)+offset, rotationy);
+        Instantiate(bishop, new Vector3(2, 0, 7)+offset, rotationy);
+        Instantiate(queen, new Vector3(3, 0, 7)+offset, rotationy);
+        Instantiate(king, new Vector3(4, 0, 7)+offset, rotationy);
+        Instantiate(bishop, new Vector3(5, 0, 7)+offset, rotationy);
+        Instantiate(knight, new Vector3(6, 0, 7)+offset, rotationy);
+        Instantiate(rook, new Vector3(7, 0, 7)+offset, rotationy);
+        
+        _board = new GameObject[size, size];
+        
+    }
+    private void Start()
+    {
+        CreateBoard();
+        InitializePieces();
+        
     }
 
 
@@ -26,6 +74,16 @@ public class BoardCreator : MonoBehaviour
                 CallInstantiation(i, j);
             }
         }
+    }
+
+    private void Update()
+    {
+        PiecesPosition();
+    }
+    
+    private void PiecesPosition()
+    {
+        
     }
 
 
@@ -46,9 +104,12 @@ public class BoardCreator : MonoBehaviour
 
     private void CreateCell(int i, int j, Material input)
     {
-        GameObject cell = Instantiate(test, new Vector3(i, 0, j), Quaternion.identity);
-        cell.GetComponent<Renderer>().material = input;
-        cell.transform.parent = transform;
-        cell.name = $"Cell {i} {j}";
+        GameObject temp = Instantiate(cell, new Vector3(i, 0, j), Quaternion.identity);
+        temp.GetComponent<Renderer>().material = input;
+        temp.transform.parent = transform;
+        temp.name = $"Cell {i} {j}";
+        _board[i, j] = temp;
+        
+        
     }
 }
