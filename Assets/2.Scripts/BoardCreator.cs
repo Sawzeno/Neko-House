@@ -1,5 +1,4 @@
 using UnityEngine;
-using static System.Math;
 
 public class BoardCreator : MonoBehaviour
 {
@@ -16,14 +15,17 @@ public class BoardCreator : MonoBehaviour
     [SerializeField] private GameObject queen;
     [SerializeField] private GameObject king;
 
-    [SerializeField] private GameObject highlighter;
+    // [SerializeField] private GameObject highlighter;
 
     // materials
     [SerializeField] private Material white;
     [SerializeField] private Material black;
+    [SerializeField] private Material green;
+    [SerializeField] private Material red;
 
     //Game Object List
     private GameObject[,] _board;
+    private int[,] _life;
 
     private void CreateBoard()
     {
@@ -77,6 +79,7 @@ public class BoardCreator : MonoBehaviour
     private void Start()
     {
         _board = new GameObject[size, size];
+        _life = new int[size, size];
         CreateBoard();
         InitializePieces();
     }
@@ -85,6 +88,7 @@ public class BoardCreator : MonoBehaviour
     {
         SelectPiece();
         MovePieces();
+        TestDebugger();
     }
 
 
@@ -142,43 +146,17 @@ public class BoardCreator : MonoBehaviour
 
     private void PawnMoves(RaycastHit obj, string type)
     {
-        Vector3 transformPosition = obj.transform.position;
-        switch (type)
-        {
-            //possible moves for White pawn
-            case "White Pawn" when transformPosition.z == 1:
-
-                Instantiate(highlighter, transformPosition + new Vector3(0, 0, 1), Quaternion.identity);
-                Instantiate(highlighter, transformPosition + new Vector3(0, 0, 2), Quaternion.identity);
-                break;
-            case "White Pawn":
-                Instantiate(highlighter, transformPosition + new Vector3(0, 0, 1), Quaternion.identity);
-                break;
-            case "Black Pawn" when transformPosition.z == 6:
-                Instantiate(highlighter, transformPosition - new Vector3(0, 0, 1), Quaternion.identity);
-                Instantiate(highlighter, transformPosition - new Vector3(0, 0, 2), Quaternion.identity);
-
-                break;
-            case "Black Pawn":
-                Instantiate(highlighter, transformPosition - new Vector3(0, 0, 1), Quaternion.identity);
-                break;
-        }
     }
 
     private void RookMoves(RaycastHit obj, string type)
     {
         //possible moves for rook
-        switch (type)
-        {
-            case "White Rook":
-                
-        }
-        
     }
 
     private void KnightMoves(RaycastHit obj, string type)
     {
         //possible moves for knight
+        
     }
 
     private void BishopMoves(RaycastHit obj, string type)
@@ -203,16 +181,13 @@ public class BoardCreator : MonoBehaviour
 
     private void CallInstantiation(int i, int j)
     {
-        switch (i % 2)
+        if ((i + j) % 2 == 1)
         {
-            case 0:
-                CreateCell(i, j, j % 2 == 0 ? white : black);
-
-                break;
-            case 1:
-                CreateCell(i, j, j % 2 == 0 ? black : white);
-
-                break;
+            CreateCell(i, j, white);
+        }
+        else if ((i + j) % 2 == 0)
+        {
+            CreateCell(i, j, black);
         }
     }
 
@@ -220,9 +195,10 @@ public class BoardCreator : MonoBehaviour
     {
         GameObject temp = Instantiate(cell, new Vector3(i, 0, j), Quaternion.identity);
         temp.GetComponent<Renderer>().material = input;
-        temp.transform.parent = transform;
         temp.name = $"Cell {i} {j}";
+        temp.transform.parent = transform;
         _board[i, j] = temp;
+        _life[i, j] = 0;
     }
 
     private void CreatePiece(GameObject piece, int i, int j, int k, Quaternion rotation, string type, Material material)
@@ -231,6 +207,32 @@ public class BoardCreator : MonoBehaviour
         GameObject newPiece = Instantiate(piece, new Vector3(i, j, k) + offset, rotation);
         newPiece.AddComponent<BoxCollider>();
         newPiece.tag = type;
+        newPiece.transform.name = type;
         newPiece.GetComponent<Renderer>().material = material;
+        if (material == white)
+        {
+            _life[i, k] = 1;
+        }
+        else if (material == black)
+        {
+            _life[i, k] = -1;
+        }
+    }
+
+    private void TestDebugger()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            for (int i = 0; i < size; i++)
+            {
+                string temp =i+ " ## " + "";
+                for (int j = 0; j < size; j++)
+                {
+                    temp +=  _life[i, j] + " ";
+                }
+                
+                print(temp+ " ## " );
+            }
+        }
     }
 }
