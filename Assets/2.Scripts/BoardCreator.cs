@@ -155,8 +155,34 @@ public class BoardCreator : MonoBehaviour
 
     private void KnightMoves(RaycastHit obj, string type)
     {
-        //possible moves for knight
+        Vector3 t = obj.transform.position;
         
+        //possible moves for knight
+        for (int i = -2; i <= 2; i++)
+        {
+            for(int j = -2 ;j<= 2;j++ )
+            {
+                if (i == 0 || j == 0 || i == j || i == -j)
+                {
+                    continue;
+                }
+                if (t.x + i < 0 || t.x + i > 7 || t.z + j < 0 || t.z + j > 7)
+                {
+                    continue;
+                }
+
+                int l = _life[(int)t.x + i, (int)t.z + j] + _life[(int)t.x , (int)t.z];
+                if (l == 1|| l == -1)
+                {
+                    _board[(int)t.x +i, (int)t.z + j].GetComponent<Renderer>().material = green;
+                }
+                else if (l == 0)
+                {
+                    _board[(int)t.x +i, (int)t.z + j].GetComponent<Renderer>().material = red;
+                }
+ 
+            }
+        }
     }
 
     private void BishopMoves(RaycastHit obj, string type)
