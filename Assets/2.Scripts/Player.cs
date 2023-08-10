@@ -3,12 +3,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private Transform cam;
-    private float speed = 0.05f;
-    private float _ax ;
-    private float _ay ;
-    private float _az ;
+    private const float Speed = 0.05f;
+    private float _ax;
+    private float _ay;
+    private float _az;
     private Vector3 _a;
-    readonly Vector3 _init ;
+    [SerializeField] private Vector3 init;
 
     private void Start()
     {
@@ -25,27 +25,32 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            cam.Translate(Vector3.forward * speed);
+            cam.Translate(Vector3.forward * Speed);
         }
+
         if (Input.GetKey(KeyCode.S))
         {
-            cam.Translate(Vector3.back * speed);
+            cam.Translate(Vector3.back * Speed);
         }
+
         if (Input.GetKey(KeyCode.A))
         {
-            cam.Translate(Vector3.left * speed);
+            cam.Translate(Vector3.left * Speed);
         }
+
         if (Input.GetKey(KeyCode.D))
         {
-            cam.Translate(Vector3.right * speed);
+            cam.Translate(Vector3.right * Speed);
         }
+
         if (Input.GetKey(KeyCode.Q))
         {
-            cam.Translate(Vector3.up * speed);
+            cam.Translate(Vector3.up * Speed);
         }
+
         if (Input.GetKey(KeyCode.E))
         {
-            cam.Translate(Vector3.down * speed);
+            cam.Translate(Vector3.down * Speed);
         }
     }
 }

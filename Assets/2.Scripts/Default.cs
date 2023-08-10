@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class BoardCreator : MonoBehaviour
@@ -7,7 +6,7 @@ public class BoardCreator : MonoBehaviour
     [SerializeField] private Camera cam;
 
     // GameObjects
-    private readonly int size = 8;
+    private readonly int _size = 8;
     [SerializeField] private GameObject cell;
     [SerializeField] private GameObject pawn;
     [SerializeField] private GameObject rook;
@@ -31,12 +30,12 @@ public class BoardCreator : MonoBehaviour
     //constants
 
 
-    private void CreateBoard()
+    public void CreateBoard()
     {
-        Debug.Log("Creating board of" + size + "x" + size + "size.");
-        for (int i = 0; i < size; i++)
+        Debug.Log("Creating board of" + _size + "x" + _size + "size.");
+        for (int i = 0; i < _size; i++)
         {
-            for (int j = 0; j < size; j++)
+            for (int j = 0; j < _size; j++)
             {
                 CallInstantiation(i, j);
             }
@@ -48,7 +47,7 @@ public class BoardCreator : MonoBehaviour
         Quaternion rotationW = Quaternion.Euler(-90, 180, 0);
         Quaternion rotationB = Quaternion.Euler(-90, 0, 0);
         // White
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < _size; i++)
         {
             CreatePiece(pawn, i, 0, 1, rotationW, "White Pawn", white);
         }
@@ -64,7 +63,7 @@ public class BoardCreator : MonoBehaviour
 
 
         // Black
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < _size; i++)
         {
             CreatePiece(pawn, i, 0, 6, rotationB, "Black Pawn", black);
         }
@@ -82,8 +81,8 @@ public class BoardCreator : MonoBehaviour
 
     private void Start()
     {
-        _board = new GameObject[size, size];
-        _life = new int[size, size];
+        _board = new GameObject[_size, _size];
+        _life = new int[_size, _size];
         CreateBoard();
         InitializePieces();
     }
@@ -91,11 +90,9 @@ public class BoardCreator : MonoBehaviour
     private void Update()
     {
         SelectPiece();
-        MovePieces();
         TestDebugger();
     }
-
-
+    
     private void SelectPiece()
     {
         var ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -298,9 +295,7 @@ public class BoardCreator : MonoBehaviour
         }
     }
 
-    private void MovePieces()
-    {
-    }
+
 
     private void Colour(int a, int b, Material type)
     {
@@ -352,10 +347,10 @@ public class BoardCreator : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < _size; i++)
             {
                 string temp = i + " ## " + "";
-                for (int j = 0; j < size; j++)
+                for (int j = 0; j < _size; j++)
                 {
                     temp += _life[i, j] + " ";
                 }
