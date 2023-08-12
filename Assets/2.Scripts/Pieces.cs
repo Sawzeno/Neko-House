@@ -2,91 +2,66 @@ using UnityEngine;
 
 public class Pieces
 {
-    private Vector3 _piecePosition;
-    private GameObject _pieces;
+    public readonly GameObject PiecesObject;
+    public Vector3 PiecesPosition;
     private Vector3 _offset;
 
-    public void CreatePieces(Game game)
-    {
-        Quaternion rotationW = Quaternion.Euler(-90, 180, 0);
-        Quaternion rotationB = Quaternion.Euler(-90, 0, 0);
-        _pieces = new GameObject("Pieces");
-        _pieces.transform.position = game.Positions.Cells[0, 0].transform.position;
-        
-        //white
-        
-        //pawn
-        for (int i = 0; i < game.Config.size; i++)
-        {
-            CreatePiece(game, game.Config.pawn, i, 0, 1, game.Config.color1, rotationW);
-        }
-        
-        //rook
-        CreatePiece(game, game.Config.rook, 0, 0, 0, game.Config.color1, rotationW);
-        CreatePiece(game, game.Config.rook, 7, 0, 0, game.Config.color1, rotationW);
-        
-        //knight
-        CreatePiece(game, game.Config.knight, 1, 0, 0, game.Config.color1, rotationW);
-        CreatePiece(game, game.Config.knight, 6, 0, 0, game.Config.color1, rotationW);
-        
-        //bishop
-        CreatePiece(game, game.Config.bishop, 2, 0, 0, game.Config.color1, rotationW);
-        CreatePiece(game, game.Config.bishop, 5, 0, 0, game.Config.color1, rotationW);
-        
-        //queen
-        CreatePiece(game, game.Config.queen, 3, 0, 0, game.Config.color1, rotationW);
-        
-        //king
-        CreatePiece(game, game.Config.king, 4, 0, 0, game.Config.color1, rotationW);
-        
-        //black
-        
-        //pawn
-        for (int i = 0; i < game.Config.size; i++)
-        {
-            CreatePiece(game, game.Config.pawn, i, 0, 6, game.Config.color2, rotationB);
-        }
-        
-        //rook
-        CreatePiece(game, game.Config.rook, 0, 0, 7, game.Config.color2, rotationB);
-        CreatePiece(game, game.Config.rook, 7, 0, 7, game.Config.color2, rotationB);
-        
-        //knight
-        CreatePiece(game, game.Config.knight, 1, 0, 7, game.Config.color2, rotationB);
-        CreatePiece(game, game.Config.knight, 6, 0, 7, game.Config.color2, rotationB);
-        
-        //bishop
-        CreatePiece(game, game.Config.bishop, 2, 0, 7, game.Config.color2, rotationB);
-        CreatePiece(game, game.Config.bishop, 5, 0, 7, game.Config.color2, rotationB);
-        
-        //queen
-        CreatePiece(game, game.Config.queen, 3, 0, 7, game.Config.color2, rotationB);
-        
-        //king
-        CreatePiece(game, game.Config.king, 4, 0, 7, game.Config.color2, rotationB);
-        
-        
-    }
 
-    private void CreatePiece(Game game, GameObject piece, int i  , int j , int k  , Color color, Quaternion rotation)
+    public Pieces(Configuration config, Positions positions)
     {
-        _offset = new Vector3(0, 3f, 0);
-        GameObject newPiece = Object.Instantiate(piece, new Vector3(i,j,k) + _offset, rotation);
-        newPiece.GetComponent<Renderer>().material.color = color;
-        Rigidbody collider = newPiece.AddComponent<Rigidbody>();
-        collider.mass = 0.01f;
-        
-        newPiece.AddComponent<BoxCollider>();
-        newPiece.name = $"{i} {k}";
-        newPiece.transform.parent = _pieces.transform;
-        game.Positions.Pieces[i, k] = newPiece;
-        if (color == game.Config.color1)
+        PiecesObject = new GameObject("Pieces");
+        PiecesObject.transform.position = PiecesPosition;
+
+        //White
+
+        //Pawns
+        for (int i = 0; i < config.size; i++)
         {
-            game.Positions.Life[i,k] = 1;
+            Pawns pawn = new Pawns(config, positions, i, 1, 1, "Pawn", 1);
         }
-        else if (color == game.Config.color2)
+
+        //Rooks
+        Rooks rookW1 = new Rooks(config, positions, 0, 1, 0, "Rook", 1);
+        Rooks rookW2 = new Rooks(config, positions, 7, 1, 0, "Rook", 1);
+
+        //Knights
+        Knights knightW1 = new Knights(config, positions, 1, 1, 0, "Knight", 1);
+        Knights knightW2 = new Knights(config, positions, 6, 1, 0, "Knight", 1);
+
+        //Bishops
+        Bishops bishopW1 = new Bishops(config, positions, 2, 1, 0, "Bishop", 1);
+        Bishops bishopW2 = new Bishops(config, positions, 5, 1, 0, "Bishop", 1);
+
+        //Queen
+        Queens queenW = new Queens(config, positions, 3, 1, 0, "Queen", 1);
+
+        //King
+        Kings kingW = new Kings(config, positions, 4, 1, 0, "King", 1);
+
+        //Black
+
+        //Pawns
+        for (int i = 0; i < config.size; i++)
         {
-            game.Positions.Life[i,k] = -1;
+            Pawns pawn = new Pawns(config, positions, i, 1, 6, "Pawn", 0);
         }
+
+        //Rooks
+        Rooks rookB1 = new Rooks(config, positions, 0, 1, 7, "Rook", 0);
+        Rooks rookB2 = new Rooks(config, positions, 7, 1, 7, "Rook", 0);
+
+        //Knights
+        Knights knightB1 = new Knights(config, positions, 1, 1, 7, "Knight", 0);
+        Knights knightB2 = new Knights(config, positions, 6, 1, 7, "Knight", 0);
+
+        //Bishops
+        Bishops bishopB1 = new Bishops(config, positions, 2, 1, 7, "Bishop", 0);
+        Bishops bishopB2 = new Bishops(config, positions, 5, 1, 7, "Bishop", 0);
+
+        //Queen
+        Queens queenB = new Queens(config, positions, 3, 1, 7, "Queen", 0);
+
+        //King
+        Kings kingB = new Kings(config, positions, 4, 1, 7, "King", 0);
     }
 }

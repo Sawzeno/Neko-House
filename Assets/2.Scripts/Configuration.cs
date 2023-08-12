@@ -2,17 +2,12 @@ using UnityEngine;
 
 public class Configuration : MonoBehaviour
 {
-    
-    //Size
-    [SerializeField] public int size = 8;
-    
-    //Colors
-    [SerializeField] public Color color1;
-    [SerializeField] public Color color2;
-    [SerializeField] public Color highlight;
-    [SerializeField] public Color danger;
-    
-    //pieces
+    public int size = 8;
+    [SerializeField] public Color color1 = Color.white;
+    [SerializeField] public Color color2 = Color.black;
+    [SerializeField] public Color highlight = Color.green;
+    [SerializeField] public Color danger = Color.red;
+
     [SerializeField] public GameObject cell;
     [SerializeField] public GameObject pawn;
     [SerializeField] public GameObject rook;
@@ -21,6 +16,4 @@ public class Configuration : MonoBehaviour
     [SerializeField] public GameObject queen;
     [SerializeField] public GameObject king;
     
-    
-
 }
