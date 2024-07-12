@@ -3,24 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - White Pawn
-  - White King
-  - White Queen
-  - White Bishop
-  - White Knight
-  - White Rook
-  - Black Pawn
-  - Black King
-  - Black Queen
-  - Black Bishop
-  - Black Knight
-  - Black Rook
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Pieces
   - Water
   - UI
   - 
