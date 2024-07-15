@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fdf17113a6f74e63b1e96bb7e9dad1f, type: 3}
-  m_Name: BlackKing
+  m_Name: Black Queen
   m_EditorClassIdentifier: 
-  PieceType: {fileID: 919132149155446097, guid: 06416043fc20040de8c94c729c5115a3, type: 3}
+  PieceType: {fileID: 919132149155446097, guid: 5198e84133a424081b9bd731e1026a56, type: 3}

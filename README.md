@@ -8,9 +8,9 @@ I LIKE CHESS AND PROGRAMMING , SO I DESCIDED TO WRITE A CHESS ENGINE
 1. reach an ELO of 1000 
 
 # CURRENT STATE
-- loads a 3D scene in a Coffee Shop (head to devlog.txt for more details on what's wrong with OP)
+- Pieces can be clicked , working on dragging Pieces and remnaining 3D models of coffee shop (head to devlog.txt for more details on what's wrong with OP)
 - <img width="1710" alt="Screenshot 2024-07-12 at 8 00 38 PM" src="https://github.com/user-attachments/assets/a4fadfce-d8d0-4581-8281-496427ed3a32">
-- OP's elo : 393
+- OP's elo : 136(RAPID)
 - https://www.chess.com/member/killmebaby69
 
 ## Getting Started
