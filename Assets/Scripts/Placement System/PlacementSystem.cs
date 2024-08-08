@@ -41,7 +41,6 @@ public class PlacementSystem : MonoBehaviour
         BuildingState = new RemovingState(Grid, PreviewSystem, FloorData, FurnitureData, ObjectPlacer);
         InputManager.OnClicked += PlaceStructure;
         InputManager.OnExit += StopPlacement;
-        
     }
     private void PlaceStructure()
     {
@@ -62,7 +61,6 @@ public class PlacementSystem : MonoBehaviour
         InputManager.OnClicked -= PlaceStructure;
         InputManager.OnExit -= StopPlacement;
         LastDetectedPosition = Vector3Int.zero;
-
     }
     private void Update()
     {
